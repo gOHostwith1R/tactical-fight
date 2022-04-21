@@ -1,8 +1,8 @@
-import { Unit, Skeleton, BLa} from '../classes/Unit'
+import { unit, unit2, unit1} from "../classes/Unit";
+
 export const App = () => {
-  const unit = new Unit(new Skeleton());
-  console.log(unit)
-  unit.setUnit(new BLa());
-  console.log(unit);
+  console.log(unit.doAction(), unit.name);
+  console.log(unit1.doAction(), unit1.name);
+  console.log(unit2.doAction(), unit2.name);
   return <div className="App">app</div>;
 };
