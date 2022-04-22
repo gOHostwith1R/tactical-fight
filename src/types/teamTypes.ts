@@ -1,6 +1,7 @@
 export interface TeamsTypes {
   firstTeam: TeamTypes[] | undefined;
   secondTeam: TeamTypes[] | undefined;
+  queue: TeamTypes[] | undefined
 }
 
 export interface TeamTypes {
@@ -9,6 +10,7 @@ export interface TeamTypes {
   image: string;
   initiative: number;
   name: string;
+  uniqueId: number;
   doAction: (damage: number) => number;
 }
 

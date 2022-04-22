@@ -4,4 +4,5 @@ export type UnitType = {
   damage: number;
   initiative: number;
   image: string;
+  uniqueId: number;
 };
