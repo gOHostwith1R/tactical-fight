@@ -1,3 +1,3 @@
 export interface UnitAction {
-    doAction: (damage: number) => number;
+    doAction: (damage: number, health: number) => number;
   }

@@ -10,6 +10,7 @@ export class Skeleton extends Unit {
         damage: 25,
         initiative: 50,
         uniqueId: 0,
+        team: 0,
         image: "../../assets/skeletonCard.png",
       },
       new MeleeAction()

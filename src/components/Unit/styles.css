@@ -1,6 +1,6 @@
 .unit__wrapper {
     width: 100px;
-    height: 150px;
+    height: 160px;
     text-align: center;
     cursor: pointer;
     border-radius: 3px;
@@ -29,4 +29,8 @@
 
 .active__title-unit {
     color: antiquewhite;
+}
+
+.unit__health {
+    margin: 0;
 }

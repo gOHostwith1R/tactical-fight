@@ -11,7 +11,8 @@ export interface TeamTypes {
   initiative: number;
   name: string;
   uniqueId: number;
-  doAction: (damage: number) => number;
+  team: number;
+  doAction: (damage: number, health: number) => number;
 }
 
 export interface QueueTypes {

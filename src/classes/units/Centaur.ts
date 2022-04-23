@@ -10,6 +10,7 @@ export class Centaur extends Unit {
         damage: 50,
         initiative: 50,
         uniqueId: 0,
+        team: 0,
         image: "../../assets/centaurCard.png",
       },
       new MeleeAction()

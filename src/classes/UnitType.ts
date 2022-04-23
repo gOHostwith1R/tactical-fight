@@ -5,4 +5,5 @@ export type UnitType = {
   initiative: number;
   image: string;
   uniqueId: number;
+  team: number;
 };

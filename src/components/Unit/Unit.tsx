@@ -5,10 +5,13 @@ export const Unit: FC<typeProps> = ({
   image,
   name,
   team,
-  hoverUnit,
+  health,
   hoverActiveUnit,
   id,
+  hoverUnit,
   outHoverUnit,
+  onAttack,
+  coords,
 }): ReactElement => {
   return (
     <div
@@ -17,9 +20,17 @@ export const Unit: FC<typeProps> = ({
       }`}
       onMouseEnter={() => hoverUnit(id)}
       onMouseLeave={() => outHoverUnit(id)}
+      onClick={() => onAttack(id)}
     >
-      <h3 className={`unit__title ${hoverActiveUnit === id && "active__title-unit"}`}>{name}</h3>
+      <h3
+        className={`unit__title ${
+          hoverActiveUnit === id && "active__title-unit"
+        }`}
+      >
+        {name}
+      </h3>
       <img src={image} alt="card__unit" className="unit__image" />
+      <p className="unit__health">{health}</p>
     </div>
   );
 };
@@ -29,7 +40,13 @@ type typeProps = {
   name: string;
   team: number;
   id: number;
+  health: number;
   hoverActiveUnit: number;
+  coords: {
+    rowIndex: number,
+    colIndex: number;
+  }
   hoverUnit: (id: number) => void;
   outHoverUnit: (id: number) => void;
+  onAttack: (id: number) => void;
 };
