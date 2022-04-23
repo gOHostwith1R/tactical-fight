@@ -6,4 +6,7 @@ export type UnitType = {
   image: string;
   uniqueId: number;
   team: number;
+  typeAction: string;
+  coords: { colIndex: number, rowIndex: number },
+  isDefend: boolean;
 };

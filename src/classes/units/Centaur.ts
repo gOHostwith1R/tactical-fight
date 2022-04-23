@@ -11,6 +11,9 @@ export class Centaur extends Unit {
         initiative: 50,
         uniqueId: 0,
         team: 0,
+        typeAction: 'melee',
+        coords: { colIndex: -1, rowIndex: -1 },
+        isDefend: false,
         image: "../../assets/centaurCard.png",
       },
       new MeleeAction()

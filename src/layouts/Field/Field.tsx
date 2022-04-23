@@ -1,4 +1,5 @@
 import { FC, useState } from "react";
+import { Button } from "../../components/Button/Button";
 import { Unit } from "../../components/Unit/Unit";
 import { TeamTypes, TeamsTypes } from "../../types/teamTypes";
 import { Queue } from "../Queue/Queue";
@@ -11,25 +12,41 @@ export const Field: FC<FieldProps> = ({
 }) => {
   const [hoverActiveUnit, setHoverActiveUnit] = useState(-1);
   const [activeUnit, setActiveUnit] = useState(queue![0]);
-  const [attackedUnit, setAttackedUnit] = useState<TeamTypes | undefined>(
-    undefined
-  );
   const hoverUnit = (id: number) => {
     setHoverActiveUnit(id);
   };
-  const outHoverUnit = (id: number) => {
+  const outHoverUnit = () => {
     setHoverActiveUnit(-1);
   };
 
-  const onAttack = (id: number) => {
-    const unit = queue?.find((elem) => elem.uniqueId === id);
-    setAttackedUnit(unit);
-    unit!.health =
-      unit!.health - activeUnit.doAction(activeUnit.damage, unit!.health);
+  const onAttack = (
+    id: number,
+    coords: { rowIndex: number; colIndex: number },
+    team: number
+  ) => {
+    if (activeUnit.team !== team) {
+      const unit = queue?.find((elem) => elem.uniqueId === id);
+      const attempt = activeUnit.doAction(
+        activeUnit.damage,
+        unit!.health,
+        activeUnit.coords,
+        coords
+      );
+      if (attempt === null) {
+        return;
+      }
+      unit!.health = unit!.health - attempt;
+      queue?.shift();
+      setActiveUnit(queue![0]);
+    }
+  };
+
+  const onDefend = () => {
+    console.log(activeUnit);
+    activeUnit.isDefend = true;
     queue?.shift();
     setActiveUnit(queue![0]);
-    console.log(activeUnit.name, "attack", attackedUnit);
-  };
+  }
 
   return (
     <>
@@ -40,47 +57,50 @@ export const Field: FC<FieldProps> = ({
         hoverActiveUnit={hoverActiveUnit}
       />
       <div className="field__wrapper">
-        <div className="team__wrapper first-team">
-          {matrixFirstTeam.map((arrayUnits, rowIndex) => {
-            return arrayUnits.map((unit, colIndex) => {
-              return (
-                <Unit
-                  image={unit.image}
-                  name={unit.name}
-                  key={unit.uniqueId}
-                  health={unit.health}
-                  team={unit.team}
-                  id={unit.uniqueId}
-                  hoverUnit={hoverUnit}
-                  outHoverUnit={outHoverUnit}
-                  hoverActiveUnit={hoverActiveUnit}
-                  onAttack={onAttack}
-                  coords={{rowIndex, colIndex}}
-                />
-              );
-            });
-          })}
-        </div>
-        <div className="team__wrapper second-team">
-          {matrixSecondTeam.map((arrayUnits, rowIndex) => {
-            return arrayUnits.map((unit, colIndex) => {
-              return (
-                <Unit
-                  image={unit.image}
-                  name={unit.name}
-                  key={unit.uniqueId}
-                  health={unit.health}
-                  team={unit.team}
-                  id={unit.uniqueId}
-                  coords={{rowIndex, colIndex}}
-                  hoverUnit={hoverUnit}
-                  outHoverUnit={outHoverUnit}
-                  hoverActiveUnit={hoverActiveUnit}
-                  onAttack={onAttack}
-                />
-              );
-            });
-          })}
+        <Button onDefend={onDefend }/>
+        <div className="container">
+          <div className="team__wrapper first-team">
+            {matrixFirstTeam.map((arrayUnits, rowIndex) => {
+              return arrayUnits.map((unit, colIndex) => {
+                return (
+                  <Unit
+                    image={unit.image}
+                    name={unit.name}
+                    key={unit.uniqueId}
+                    health={unit.health}
+                    team={unit.team}
+                    id={unit.uniqueId}
+                    hoverUnit={hoverUnit}
+                    outHoverUnit={outHoverUnit}
+                    hoverActiveUnit={hoverActiveUnit}
+                    onAttack={onAttack}
+                    coords={{ rowIndex, colIndex }}
+                  />
+                );
+              });
+            })}
+          </div>
+          <div className="team__wrapper second-team">
+            {matrixSecondTeam.map((arrayUnits, rowIndex) => {
+              return arrayUnits.map((unit, colIndex) => {
+                return (
+                  <Unit
+                    image={unit.image}
+                    name={unit.name}
+                    key={unit.uniqueId}
+                    health={unit.health}
+                    team={unit.team}
+                    id={unit.uniqueId}
+                    coords={{ rowIndex, colIndex }}
+                    hoverUnit={hoverUnit}
+                    outHoverUnit={outHoverUnit}
+                    hoverActiveUnit={hoverActiveUnit}
+                    onAttack={onAttack}
+                  />
+                );
+              });
+            })}
+          </div>
         </div>
       </div>
     </>

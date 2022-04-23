@@ -10,6 +10,9 @@ export class Unit {
   public initiative: number;
   public image: string;
   public team: number;
+  public typeAction: string;
+  public coords: { colIndex: number; rowIndex: number };
+  public isDefend: boolean;
   constructor(unit: UnitType, unitAction: UnitAction) {
     this.name = unit.name;
     this.health = unit.health;
@@ -19,6 +22,9 @@ export class Unit {
     this.uniqueId = this.createUniqueId();
     this.unitAction = unitAction;
     this.team = unit.team;
+    this.typeAction = unit.typeAction;
+    this.coords = unit.coords;
+    this.isDefend = unit.isDefend;
   }
 
   setUnit(unit: UnitType, unitAction: UnitAction) {
@@ -30,6 +36,9 @@ export class Unit {
     this.uniqueId = unit.uniqueId;
     this.unitAction = unitAction;
     this.team = unit.team;
+    this.typeAction = unit.typeAction;
+    this.coords = unit.coords;
+    this.isDefend = unit.isDefend;
   }
 
   createUniqueId() {
@@ -37,7 +46,17 @@ export class Unit {
     return uniqueId;
   }
 
-  public doAction(damage: number, health: number): number {
-    return this.unitAction.doAction(damage, health);
+  public doAction(
+    damage: number,
+    health: number,
+    attackingCords: { colIndex: number; rowIndex: number },
+    attackedCords: { colIndex: number; rowIndex: number }
+  ): number | null {
+    return this.unitAction.doAction(
+      damage,
+      health,
+      attackingCords,
+      attackedCords
+    );
   }
 }

@@ -18,6 +18,7 @@ export class Matrix {
         if (this.firstTeam !== undefined) {
           matrixFirstTeam[i][j] = this.firstTeam[counter];
           this.firstTeam[counter].team = 0;
+          this.firstTeam[counter].coords = { colIndex: j, rowIndex: i };
         }
         counter++;
       }
@@ -30,6 +31,7 @@ export class Matrix {
           if (this.secondTeam !== undefined) {
             matrixSecondTeam[i][j] = this.secondTeam[counter];
             this.secondTeam[counter].team = 1;
+            this.secondTeam[counter].coords = { colIndex: j, rowIndex: i };
           }
         }
         counter++;

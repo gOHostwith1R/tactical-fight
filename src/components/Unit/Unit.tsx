@@ -19,8 +19,8 @@ export const Unit: FC<typeProps> = ({
         hoverActiveUnit === id && "active"
       }`}
       onMouseEnter={() => hoverUnit(id)}
-      onMouseLeave={() => outHoverUnit(id)}
-      onClick={() => onAttack(id)}
+      onMouseLeave={() => outHoverUnit()}
+      onClick={() => onAttack(id, coords, team)}
     >
       <h3
         className={`unit__title ${
@@ -43,10 +43,14 @@ type typeProps = {
   health: number;
   hoverActiveUnit: number;
   coords: {
-    rowIndex: number,
+    rowIndex: number;
     colIndex: number;
-  }
+  };
   hoverUnit: (id: number) => void;
-  outHoverUnit: (id: number) => void;
-  onAttack: (id: number) => void;
+  outHoverUnit: () => void;
+  onAttack: (
+    id: number,
+    coords: { rowIndex: number; colIndex: number },
+    team: number
+  ) => void;
 };

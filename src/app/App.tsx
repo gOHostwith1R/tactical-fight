@@ -8,7 +8,10 @@ export const App = () => {
   const firstTeam = createTeam();
   const secondTeam = createTeam();
   const queue = createQueue(firstTeam, secondTeam);
-  const {matrixFirstTeam, matrixSecondTeam} = new Matrix(firstTeam, secondTeam).createMatrix();
+  const { matrixFirstTeam, matrixSecondTeam } = new Matrix(
+    firstTeam,
+    secondTeam
+  ).createMatrix();
   return (
     <div className="app">
       <Field

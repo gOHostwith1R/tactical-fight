@@ -1,7 +1,7 @@
 export interface TeamsTypes {
   firstTeam: TeamTypes[] | undefined;
   secondTeam: TeamTypes[] | undefined;
-  queue: TeamTypes[] | undefined
+  queue: TeamTypes[] | undefined;
 }
 
 export interface TeamTypes {
@@ -12,7 +12,14 @@ export interface TeamTypes {
   name: string;
   uniqueId: number;
   team: number;
-  doAction: (damage: number, health: number) => number;
+  coords: { colIndex: number; rowIndex: number };
+  isDefend: boolean;
+  doAction: (
+    damage: number,
+    health: number,
+    attacking: { colIndex: number; rowIndex: number },
+    attacked: { colIndex: number; rowIndex: number }
+  ) => number | null;
 }
 
 export interface QueueTypes {

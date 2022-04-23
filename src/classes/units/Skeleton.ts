@@ -11,6 +11,9 @@ export class Skeleton extends Unit {
         initiative: 50,
         uniqueId: 0,
         team: 0,
+        typeAction: 'melee',
+        coords: { colIndex: -1, rowIndex: -1 },
+        isDefend: false,
         image: "../../assets/skeletonCard.png",
       },
       new MeleeAction()
