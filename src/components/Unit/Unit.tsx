@@ -12,6 +12,7 @@ export const Unit: FC<typeProps> = ({
   outHoverUnit,
   onAttack,
   coords,
+  isDefend,
 }): ReactElement => {
   return (
     <div
@@ -22,13 +23,16 @@ export const Unit: FC<typeProps> = ({
       onMouseLeave={() => outHoverUnit()}
       onClick={() => onAttack(id, coords, team)}
     >
-      <h3
-        className={`unit__title ${
-          hoverActiveUnit === id && "active__title-unit"
-        }`}
-      >
-        {name}
-      </h3>
+      <div className="unit__wrapper-title">
+        <h3
+          className={`unit__title ${
+            hoverActiveUnit === id && "active__title-unit"
+          }`}
+        >
+          {name}
+        </h3>
+        {isDefend && <img src="../../assets/shield.svg" alt="shield" />}
+      </div>
       <img src={image} alt="card__unit" className="unit__image" />
       <p className="unit__health">{health}</p>
     </div>
@@ -46,6 +50,7 @@ type typeProps = {
     rowIndex: number;
     colIndex: number;
   };
+  isDefend: boolean;
   hoverUnit: (id: number) => void;
   outHoverUnit: () => void;
   onAttack: (

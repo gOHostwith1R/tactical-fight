@@ -35,18 +35,17 @@ export const Field: FC<FieldProps> = ({
       if (attempt === null) {
         return;
       }
-      unit!.health = unit!.health - attempt;
+      unit!.health = attempt;
       queue?.shift();
       setActiveUnit(queue![0]);
     }
   };
 
   const onDefend = () => {
-    console.log(activeUnit);
     activeUnit.isDefend = true;
     queue?.shift();
     setActiveUnit(queue![0]);
-  }
+  };
 
   return (
     <>
@@ -57,7 +56,7 @@ export const Field: FC<FieldProps> = ({
         hoverActiveUnit={hoverActiveUnit}
       />
       <div className="field__wrapper">
-        <Button onDefend={onDefend }/>
+        <Button onDefend={onDefend} />
         <div className="container">
           <div className="team__wrapper first-team">
             {matrixFirstTeam.map((arrayUnits, rowIndex) => {
@@ -75,6 +74,7 @@ export const Field: FC<FieldProps> = ({
                     hoverActiveUnit={hoverActiveUnit}
                     onAttack={onAttack}
                     coords={{ rowIndex, colIndex }}
+                    isDefend={unit.isDefend}
                   />
                 );
               });
@@ -96,6 +96,7 @@ export const Field: FC<FieldProps> = ({
                     outHoverUnit={outHoverUnit}
                     hoverActiveUnit={hoverActiveUnit}
                     onAttack={onAttack}
+                    isDefend={unit.isDefend}
                   />
                 );
               });
