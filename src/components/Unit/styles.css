@@ -19,8 +19,12 @@
     border: 1px solid red;
 }
 
-.active {
+.can-attacked {
     background-color: red;
+}
+
+.active {
+    background-color: blue;
 }
 
 .unit__title {

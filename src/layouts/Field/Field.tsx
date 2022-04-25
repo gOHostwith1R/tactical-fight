@@ -1,17 +1,16 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { Button } from "../../components/Button/Button";
 import { Unit } from "../../components/Unit/Unit";
-import { TeamTypes, TeamsTypes } from "../../types/teamTypes";
+import { canAttacking } from "../../helpers/canAttacking";
+import { clearAttacking } from "../../helpers/clearAttacking";
+import { TeamsTypes } from "../../types/teamTypes";
 import { Queue } from "../Queue/Queue";
 import "./styles.css";
 
-export const Field: FC<FieldProps> = ({
-  queue,
-  matrixFirstTeam,
-  matrixSecondTeam,
-}) => {
+export const Field: FC<FieldProps> = ({ queue, firstTeam, secondTeam }) => {
   const [hoverActiveUnit, setHoverActiveUnit] = useState(-1);
   const [activeUnit, setActiveUnit] = useState(queue![0]);
+  const [update, setUpdate] = useState(0);
   const hoverUnit = (id: number) => {
     setHoverActiveUnit(id);
   };
@@ -19,25 +18,28 @@ export const Field: FC<FieldProps> = ({
     setHoverActiveUnit(-1);
   };
 
-  const onAttack = (
-    id: number,
-    coords: { rowIndex: number; colIndex: number },
-    team: number
-  ) => {
+  useEffect(() => {
+    canAttacking(activeUnit, firstTeam, secondTeam);
+    setUpdate(1);
+  }, [activeUnit, firstTeam, secondTeam, update]);
+
+  const onAttack = (id: number, team: number) => {
     if (activeUnit.team !== team) {
-      const unit = queue?.find((elem) => elem.uniqueId === id);
+      const unit =
+        firstTeam?.find((elem) => elem.uniqueId === id) ||
+        secondTeam?.find((elem) => elem.uniqueId === id);
       const attempt = activeUnit.doAction(
         activeUnit.damage,
-        unit!.health,
-        activeUnit.coords,
-        coords
+        unit!.currentHealth
       );
       if (attempt === null) {
         return;
       }
-      unit!.health = attempt;
+      unit!.currentHealth = attempt;
       queue?.shift();
       setActiveUnit(queue![0]);
+      clearAttacking(activeUnit.team, firstTeam, secondTeam);
+      setUpdate(0);
     }
   };
 
@@ -45,8 +47,9 @@ export const Field: FC<FieldProps> = ({
     activeUnit.isDefend = true;
     queue?.shift();
     setActiveUnit(queue![0]);
+    clearAttacking(activeUnit.team, firstTeam, secondTeam);
+    setUpdate(0);
   };
-
   return (
     <>
       <Queue
@@ -59,47 +62,45 @@ export const Field: FC<FieldProps> = ({
         <Button onDefend={onDefend} />
         <div className="container">
           <div className="team__wrapper first-team">
-            {matrixFirstTeam.map((arrayUnits, rowIndex) => {
-              return arrayUnits.map((unit, colIndex) => {
-                return (
-                  <Unit
-                    image={unit.image}
-                    name={unit.name}
-                    key={unit.uniqueId}
-                    health={unit.health}
-                    team={unit.team}
-                    id={unit.uniqueId}
-                    hoverUnit={hoverUnit}
-                    outHoverUnit={outHoverUnit}
-                    hoverActiveUnit={hoverActiveUnit}
-                    onAttack={onAttack}
-                    coords={{ rowIndex, colIndex }}
-                    isDefend={unit.isDefend}
-                  />
-                );
-              });
+            {firstTeam?.map((unit) => {
+              return (
+                <Unit
+                  image={unit.image}
+                  name={unit.name}
+                  key={unit.uniqueId}
+                  health={unit.health}
+                  currentHealth={unit.currentHealth}
+                  team={unit.team}
+                  id={unit.uniqueId}
+                  hoverUnit={hoverUnit}
+                  outHoverUnit={outHoverUnit}
+                  hoverActiveUnit={hoverActiveUnit}
+                  onAttack={onAttack}
+                  isDefend={unit.isDefend}
+                  canAttacked={unit.canAttacked}
+                />
+              );
             })}
           </div>
           <div className="team__wrapper second-team">
-            {matrixSecondTeam.map((arrayUnits, rowIndex) => {
-              return arrayUnits.map((unit, colIndex) => {
-                return (
-                  <Unit
-                    image={unit.image}
-                    name={unit.name}
-                    key={unit.uniqueId}
-                    health={unit.health}
-                    team={unit.team}
-                    id={unit.uniqueId}
-                    coords={{ rowIndex, colIndex }}
-                    hoverUnit={hoverUnit}
-                    outHoverUnit={outHoverUnit}
-                    hoverActiveUnit={hoverActiveUnit}
-                    onAttack={onAttack}
-                    isDefend={unit.isDefend}
-                  />
-                );
-              });
+            {secondTeam?.map((unit) => {
+              return (
+                <Unit
+                  image={unit.image}
+                  name={unit.name}
+                  key={unit.uniqueId}
+                  health={unit.health}
+                  currentHealth={unit.currentHealth}
+                  team={unit.team}
+                  id={unit.uniqueId}
+                  hoverUnit={hoverUnit}
+                  outHoverUnit={outHoverUnit}
+                  hoverActiveUnit={hoverActiveUnit}
+                  onAttack={onAttack}
+                  isDefend={unit.isDefend}
+                  canAttacked={unit.canAttacked}
+                />
+              );
             })}
           </div>
         </div>
@@ -108,7 +109,4 @@ export const Field: FC<FieldProps> = ({
   );
 };
 
-interface FieldProps extends TeamsTypes {
-  matrixFirstTeam: TeamTypes[][];
-  matrixSecondTeam: TeamTypes[][];
-}
+interface FieldProps extends TeamsTypes {}

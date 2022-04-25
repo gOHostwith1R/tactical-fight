@@ -11,6 +11,8 @@ export const createQueue = (
   secondTeam?.forEach((elem) => {
     queue.push(elem);
   });
-  const trueQueue = queue.sort((a, b) => b.initiative - a.initiative);
+  const trueQueue = queue
+    .sort(() => 0.5 - Math.random())
+    .sort((a, b) => b.initiative - a.initiative);
   return trueQueue;
 };

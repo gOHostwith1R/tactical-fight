@@ -1,27 +1,28 @@
 import { FC, ReactElement } from "react";
 import "./styles.css";
 
-export const Unit: FC<typeProps> = ({
+export const Unit: FC<UnitProps> = ({
   image,
   name,
   team,
   health,
+  currentHealth,
   hoverActiveUnit,
   id,
   hoverUnit,
   outHoverUnit,
   onAttack,
-  coords,
   isDefend,
+  canAttacked
 }): ReactElement => {
   return (
     <div
       className={`unit__wrapper ${team ? "second-team" : "first-team"} ${
         hoverActiveUnit === id && "active"
-      }`}
+      } ${canAttacked && 'can-attacked'}`}
       onMouseEnter={() => hoverUnit(id)}
       onMouseLeave={() => outHoverUnit()}
-      onClick={() => onAttack(id, coords, team)}
+      onClick={() => onAttack(id, team)}
     >
       <div className="unit__wrapper-title">
         <h3
@@ -34,28 +35,29 @@ export const Unit: FC<typeProps> = ({
         {isDefend && <img src="../../assets/shield.svg" alt="shield" />}
       </div>
       <img src={image} alt="card__unit" className="unit__image" />
-      <p className="unit__health">{health}</p>
+      <div>
+        <p className="unit__health">
+          {currentHealth} / {health}
+        </p>
+      </div>
     </div>
   );
 };
 
-type typeProps = {
+type UnitProps = {
   image: string;
   name: string;
   team: number;
   id: number;
   health: number;
+  currentHealth: number;
   hoverActiveUnit: number;
-  coords: {
-    rowIndex: number;
-    colIndex: number;
-  };
   isDefend: boolean;
+  canAttacked: boolean;
   hoverUnit: (id: number) => void;
   outHoverUnit: () => void;
   onAttack: (
     id: number,
-    coords: { rowIndex: number; colIndex: number },
     team: number
   ) => void;
 };

@@ -7,11 +7,13 @@ export class Bandit extends Unit {
       {
         name: "Bandit",
         health: 75,
+        currentHealth: 20,
         damage: 30,
         initiative: 60,
         uniqueId: 0,
         team: 0,
         typeAction: 'range',
+        canAttacked: false,
         coords: { colIndex: -1, rowIndex: -1 },
         isDefend: false,
         image: "../../assets/banditCard.png",

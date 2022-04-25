@@ -5,17 +5,20 @@ export class Unit {
   public unitAction: UnitAction;
   public name: string;
   public health: number;
+  public currentHealth: number;
   public damage: number;
   public uniqueId: number;
   public initiative: number;
   public image: string;
   public team: number;
   public typeAction: string;
+  public canAttacked: boolean;
   public coords: { colIndex: number; rowIndex: number };
   public isDefend: boolean;
   constructor(unit: UnitType, unitAction: UnitAction) {
     this.name = unit.name;
     this.health = unit.health;
+    this.currentHealth = unit.currentHealth;
     this.damage = unit.damage;
     this.initiative = unit.initiative;
     this.image = unit.image;
@@ -23,6 +26,7 @@ export class Unit {
     this.unitAction = unitAction;
     this.team = unit.team;
     this.typeAction = unit.typeAction;
+    this.canAttacked = unit.canAttacked;
     this.coords = unit.coords;
     this.isDefend = unit.isDefend;
   }
@@ -30,6 +34,7 @@ export class Unit {
   setUnit(unit: UnitType, unitAction: UnitAction) {
     this.name = unit.name;
     this.health = unit.health;
+    this.currentHealth = unit.currentHealth;
     this.damage = unit.damage;
     this.initiative = unit.initiative;
     this.image = unit.image;
@@ -37,6 +42,7 @@ export class Unit {
     this.unitAction = unitAction;
     this.team = unit.team;
     this.typeAction = unit.typeAction;
+    this.canAttacked = unit.canAttacked;
     this.coords = unit.coords;
     this.isDefend = unit.isDefend;
   }
@@ -46,17 +52,7 @@ export class Unit {
     return uniqueId;
   }
 
-  public doAction(
-    damage: number,
-    health: number,
-    attackingCords: { colIndex: number; rowIndex: number },
-    attackedCords: { colIndex: number; rowIndex: number }
-  ): number | null {
-    return this.unitAction.doAction(
-      damage,
-      health,
-      attackingCords,
-      attackedCords
-    );
+  public doAction(damage: number, health: number): number | null {
+    return this.unitAction.doAction(damage, health);
   }
 }
