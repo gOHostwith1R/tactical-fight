@@ -20,7 +20,7 @@ export interface TeamTypes {
   doAction: (
     damage: number,
     health: number,
-  ) => number | null;
+  ) => number;
 }
 
 export interface QueueTypes {

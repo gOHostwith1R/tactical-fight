@@ -8,7 +8,8 @@ export type UnitType = {
   uniqueId: number;
   team: number;
   typeAction: string;
-  canAttacked: boolean,
-  coords: { colIndex: number, rowIndex: number },
+  canAttacked: boolean;
+  coords: { colIndex: number; rowIndex: number };
   isDefend: boolean;
+  
 };

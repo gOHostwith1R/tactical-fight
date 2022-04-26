@@ -52,7 +52,7 @@ export class Unit {
     return uniqueId;
   }
 
-  public doAction(damage: number, health: number): number | null {
+  public doAction(damage: number, health: number): number {
     return this.unitAction.doAction(damage, health);
   }
 }

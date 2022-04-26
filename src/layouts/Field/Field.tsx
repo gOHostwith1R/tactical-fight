@@ -3,11 +3,17 @@ import { Button } from "../../components/Button/Button";
 import { Unit } from "../../components/Unit/Unit";
 import { canAttacking } from "../../helpers/canAttacking";
 import { clearAttacking } from "../../helpers/clearAttacking";
-import { TeamsTypes } from "../../types/teamTypes";
+import { TeamsTypes, TeamTypes } from "../../types/teamTypes";
 import { Queue } from "../Queue/Queue";
 import "./styles.css";
 
-export const Field: FC<FieldProps> = ({ queue, firstTeam, secondTeam }) => {
+export const Field: FC<FieldProps> = ({
+  queue,
+  firstTeam,
+  secondTeam,
+  onChangeQueue,
+  onAttackUnit,
+}) => {
   const [hoverActiveUnit, setHoverActiveUnit] = useState(-1);
   const [activeUnit, setActiveUnit] = useState(queue![0]);
   const [update, setUpdate] = useState(0);
@@ -21,31 +27,19 @@ export const Field: FC<FieldProps> = ({ queue, firstTeam, secondTeam }) => {
   useEffect(() => {
     canAttacking(activeUnit, firstTeam, secondTeam);
     setUpdate(1);
-  }, [activeUnit, firstTeam, secondTeam, update]);
+  }, [activeUnit, firstTeam, secondTeam, update, queue]);
 
-  const onAttack = (id: number, team: number) => {
-    if (activeUnit.team !== team) {
-      const unit =
-        firstTeam?.find((elem) => elem.uniqueId === id) ||
-        secondTeam?.find((elem) => elem.uniqueId === id);
-      const attempt = activeUnit.doAction(
-        activeUnit.damage,
-        unit!.currentHealth
-      );
-      if (attempt === null) {
-        return;
+  useEffect(() => {
+    queue?.forEach((unit, index) => {
+      if (unit.currentHealth === 0) {
+        queue.splice(index, 1);
       }
-      unit!.currentHealth = attempt;
-      queue?.shift();
-      setActiveUnit(queue![0]);
-      clearAttacking(activeUnit.team, firstTeam, secondTeam);
-      setUpdate(0);
-    }
-  };
+    });
+  }, [activeUnit, queue]);
 
   const onDefend = () => {
     activeUnit.isDefend = true;
-    queue?.shift();
+    onChangeQueue();
     setActiveUnit(queue![0]);
     clearAttacking(activeUnit.team, firstTeam, secondTeam);
     setUpdate(0);
@@ -75,9 +69,10 @@ export const Field: FC<FieldProps> = ({ queue, firstTeam, secondTeam }) => {
                   hoverUnit={hoverUnit}
                   outHoverUnit={outHoverUnit}
                   hoverActiveUnit={hoverActiveUnit}
-                  onAttack={onAttack}
                   isDefend={unit.isDefend}
                   canAttacked={unit.canAttacked}
+                  onAttackUnit={onAttackUnit}
+                  activeUnit={activeUnit}
                 />
               );
             })}
@@ -96,9 +91,10 @@ export const Field: FC<FieldProps> = ({ queue, firstTeam, secondTeam }) => {
                   hoverUnit={hoverUnit}
                   outHoverUnit={outHoverUnit}
                   hoverActiveUnit={hoverActiveUnit}
-                  onAttack={onAttack}
                   isDefend={unit.isDefend}
                   canAttacked={unit.canAttacked}
+                  onAttackUnit={onAttackUnit}
+                  activeUnit={activeUnit}
                 />
               );
             })}
@@ -109,4 +105,7 @@ export const Field: FC<FieldProps> = ({ queue, firstTeam, secondTeam }) => {
   );
 };
 
-interface FieldProps extends TeamsTypes {}
+interface FieldProps extends TeamsTypes {
+  onChangeQueue: () => void;
+  onAttackUnit: (id: number, team: number, activeUnit: TeamTypes) => void;
+}
