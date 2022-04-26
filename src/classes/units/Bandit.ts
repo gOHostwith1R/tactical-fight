@@ -7,7 +7,7 @@ export class Bandit extends Unit {
       {
         name: "Bandit",
         health: 75,
-        currentHealth: 20,
+        currentHealth: 50,
         damage: 30,
         initiative: 60,
         uniqueId: 0,

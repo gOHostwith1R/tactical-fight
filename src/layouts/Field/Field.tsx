@@ -9,8 +9,8 @@ export const Field: FC<FieldProps> = ({
   queue,
   firstTeam,
   secondTeam,
-  onChangeQueue,
   onAttackUnit,
+  onDefend,
 }) => {
   const [hoverActiveUnit, setHoverActiveUnit] = useState(-1);
 
@@ -29,7 +29,7 @@ export const Field: FC<FieldProps> = ({
         hoverActiveUnit={hoverActiveUnit}
       />
       <div className="field__wrapper">
-        <Button onDefend={() => console.log('d')} />
+        <Button onDefend={onDefend} />
         <div className="container">
           <div className="team__wrapper first-team">
             {firstTeam?.map((unit) => {
@@ -80,6 +80,6 @@ export const Field: FC<FieldProps> = ({
 };
 
 interface FieldProps extends TeamsTypes {
-  onChangeQueue: () => void;
   onAttackUnit: (id: number, team: number) => void;
+  onDefend: () => void;
 }

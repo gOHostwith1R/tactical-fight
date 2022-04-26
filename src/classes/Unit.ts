@@ -48,11 +48,11 @@ export class Unit {
   }
 
   createUniqueId() {
-    const uniqueId = Math.floor(Math.random() * 10000);
+    const uniqueId = Math.floor(Math.random() * 100000);
     return uniqueId;
   }
 
-  public doAction(damage: number, health: number): number {
-    return this.unitAction.doAction(damage, health);
+  public doAction(damage: number, health: number, isDefend: boolean): number {
+    return this.unitAction.doAction(damage, health, isDefend);
   }
 }

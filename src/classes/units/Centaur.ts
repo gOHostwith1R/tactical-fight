@@ -7,7 +7,7 @@ export class Centaur extends Unit {
       {
         name: "Centaur",
         health: 150,
-        currentHealth: 20,
+        currentHealth: 50,
         damage: 50,
         initiative: 50,
         uniqueId: 0,

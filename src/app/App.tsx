@@ -75,13 +75,20 @@ export const App = () => {
     }
     const attempt = activeUnit?.doAction(
       activeUnit.damage,
-      unit?.currentHealth
+      unit?.currentHealth,
+      unit.isDefend
     );
     if (attempt !== undefined) {
       unit!.currentHealth = attempt;
+      unit.isDefend = false;
     }
     onChangeQueue();
   };
+
+  const onDefend = () => {
+    activeUnit!.isDefend = true;
+    onChangeQueue();
+  }
 
   return (
     <div className="app">
@@ -89,8 +96,8 @@ export const App = () => {
         firstTeam={firstTeam}
         secondTeam={secondTeam}
         queue={queue}
-        onChangeQueue={onChangeQueue}
         onAttackUnit={onAttackUnit}
+        onDefend={onDefend}
       />
     </div>
   );

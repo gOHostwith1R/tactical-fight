@@ -20,6 +20,7 @@ export interface TeamTypes {
   doAction: (
     damage: number,
     health: number,
+    isDefend: boolean,
   ) => number;
 }
 
