@@ -1,5 +1,4 @@
 import { FC, ReactElement } from "react";
-import { TeamTypes } from "../../types/teamTypes";
 import "./styles.css";
 
 export const Unit: FC<UnitProps> = ({
@@ -15,7 +14,6 @@ export const Unit: FC<UnitProps> = ({
   isDefend,
   canAttacked,
   onAttackUnit,
-  activeUnit,
 }): ReactElement => {
   return (
     <div
@@ -25,7 +23,7 @@ export const Unit: FC<UnitProps> = ({
       onMouseEnter={() => hoverUnit(id)}
       onMouseLeave={() => outHoverUnit()}
       onClick={() => {
-        onAttackUnit(id, team, activeUnit);
+        onAttackUnit(id, team);
       }}
     >
       <div className="unit__wrapper-title">
@@ -58,8 +56,7 @@ type UnitProps = {
   hoverActiveUnit: number;
   isDefend: boolean;
   canAttacked: boolean;
-  activeUnit: TeamTypes;
   hoverUnit: (id: number) => void;
-  onAttackUnit: (id: number, team: number, activeUnit: TeamTypes) => void;
+  onAttackUnit: (id: number, team: number) => void;
   outHoverUnit: () => void;
 };

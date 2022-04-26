@@ -1,9 +1,7 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import { Button } from "../../components/Button/Button";
 import { Unit } from "../../components/Unit/Unit";
-import { canAttacking } from "../../helpers/canAttacking";
-import { clearAttacking } from "../../helpers/clearAttacking";
-import { TeamsTypes, TeamTypes } from "../../types/teamTypes";
+import { TeamsTypes } from "../../types/teamTypes";
 import { Queue } from "../Queue/Queue";
 import "./styles.css";
 
@@ -15,34 +13,12 @@ export const Field: FC<FieldProps> = ({
   onAttackUnit,
 }) => {
   const [hoverActiveUnit, setHoverActiveUnit] = useState(-1);
-  const [activeUnit, setActiveUnit] = useState(queue![0]);
-  const [update, setUpdate] = useState(0);
+
   const hoverUnit = (id: number) => {
     setHoverActiveUnit(id);
   };
   const outHoverUnit = () => {
     setHoverActiveUnit(-1);
-  };
-
-  useEffect(() => {
-    canAttacking(activeUnit, firstTeam, secondTeam);
-    setUpdate(1);
-  }, [activeUnit, firstTeam, secondTeam, update, queue]);
-
-  useEffect(() => {
-    queue?.forEach((unit, index) => {
-      if (unit.currentHealth === 0) {
-        queue.splice(index, 1);
-      }
-    });
-  }, [activeUnit, queue]);
-
-  const onDefend = () => {
-    activeUnit.isDefend = true;
-    onChangeQueue();
-    setActiveUnit(queue![0]);
-    clearAttacking(activeUnit.team, firstTeam, secondTeam);
-    setUpdate(0);
   };
   return (
     <>
@@ -53,7 +29,7 @@ export const Field: FC<FieldProps> = ({
         hoverActiveUnit={hoverActiveUnit}
       />
       <div className="field__wrapper">
-        <Button onDefend={onDefend} />
+        <Button onDefend={() => console.log('d')} />
         <div className="container">
           <div className="team__wrapper first-team">
             {firstTeam?.map((unit) => {
@@ -72,7 +48,6 @@ export const Field: FC<FieldProps> = ({
                   isDefend={unit.isDefend}
                   canAttacked={unit.canAttacked}
                   onAttackUnit={onAttackUnit}
-                  activeUnit={activeUnit}
                 />
               );
             })}
@@ -94,7 +69,6 @@ export const Field: FC<FieldProps> = ({
                   isDefend={unit.isDefend}
                   canAttacked={unit.canAttacked}
                   onAttackUnit={onAttackUnit}
-                  activeUnit={activeUnit}
                 />
               );
             })}
@@ -107,5 +81,5 @@ export const Field: FC<FieldProps> = ({
 
 interface FieldProps extends TeamsTypes {
   onChangeQueue: () => void;
-  onAttackUnit: (id: number, team: number, activeUnit: TeamTypes) => void;
+  onAttackUnit: (id: number, team: number) => void;
 }

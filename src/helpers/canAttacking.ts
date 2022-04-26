@@ -8,7 +8,11 @@ export const canAttacking = (
   const teamArray = unit.team ? firstTeam : secondTeam;
   switch (unit.typeAction) {
     case "range":
-      teamArray?.forEach((unit) => (unit.canAttacked = true));
+      teamArray?.forEach((unit) => {
+        if (unit.currentHealth > 0) {
+          unit.canAttacked = true;
+        }
+      });
       break;
     case "melee":
       if (
@@ -85,6 +89,11 @@ export const canAttacking = (
               }
             }
           }
+          teamArray.forEach((unit) => {
+            if (unit.currentHealth < 0) {
+              unit.canAttacked = false
+            }
+          })
         } else {
           const index = secondTeam?.findIndex(
             (activeUnit) => activeUnit === unit
@@ -151,6 +160,9 @@ export const canAttacking = (
               }
             }
           }
+          teamArray.forEach((unit) => {
+            if (unit.currentHealth < 0) unit.canAttacked = false;
+          })
         }
       break;
     default:
