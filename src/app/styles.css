@@ -1,3 +1,10 @@
 .app {
     display: flex;
 }
+
+.win {
+    position: absolute;
+    font-size: 32px;
+    left: 50%;
+    top: -10px;
+}

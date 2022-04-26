@@ -6,6 +6,7 @@ import { useEffect, useLayoutEffect, useState } from "react";
 import { Unit } from "../classes/Unit";
 import { canAttacking } from "../helpers/canAttacking";
 import { clearAttacking } from "../helpers/clearAttacking";
+import { checkTeam } from "../helpers/checkTeam";
 
 export const App = () => {
   const [firstTeam, setFirstTeam] = useState<Unit[]>();
@@ -13,6 +14,7 @@ export const App = () => {
   const [queue, setQueue] = useState<Unit[]>();
   const [activeUnit, setActiveUnit] = useState<Unit>();
   const [callRender, setCallRender] = useState<number>();
+  const [winTeam, setWinTeam] = useState<number | undefined>();
 
   //create team
   useLayoutEffect(() => {
@@ -38,11 +40,12 @@ export const App = () => {
     }
   }, [activeUnit, firstTeam, secondTeam, callRender]);
 
+  //clear queue
   useEffect(() => {
     queue?.forEach((unit, index) => {
       unit.currentHealth === 0 && queue.splice(index, 1);
     });
-  }, [queue?.length, queue]);
+  }, [queue?.length, queue, firstTeam, secondTeam]);
 
   const onChangeQueue = () => {
     queue?.shift();
@@ -82,16 +85,18 @@ export const App = () => {
       unit!.currentHealth = attempt;
       unit.isDefend = false;
     }
+    setWinTeam(checkTeam(firstTeam, 1) || checkTeam(secondTeam, 2));
     onChangeQueue();
   };
 
   const onDefend = () => {
     activeUnit!.isDefend = true;
     onChangeQueue();
-  }
-
+    setCallRender(2);
+  };
   return (
     <div className="app">
+      <p className="win">{winTeam && `The team ${winTeam} lost`}</p>
       <Field
         firstTeam={firstTeam}
         secondTeam={secondTeam}

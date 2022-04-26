@@ -7,7 +7,7 @@ export class Elf extends Unit {
         {
           name: "Elf",
           health: 90,
-          currentHealth: 50,
+          currentHealth: 10,
           damage: 45,
           initiative: 60,
           uniqueId: 0,
