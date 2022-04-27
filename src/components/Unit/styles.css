@@ -20,7 +20,7 @@
 }
 
 .can-attacked {
-    background-color: red;
+    background-color: green;
 }
 
 .active {
@@ -29,6 +29,8 @@
 
 .unit__title {
     margin: 0;
+    font-size: 15px;
+    word-break: break-all;
 }
 
 .active__title-unit {

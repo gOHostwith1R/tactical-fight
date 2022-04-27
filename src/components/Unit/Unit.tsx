@@ -17,7 +17,8 @@ export const Unit: FC<UnitProps> = ({
 }): ReactElement => {
   return (
     <div
-      className={`unit__wrapper ${team ? "second-team" : "first-team"} ${
+      className={`unit__wrapper
+       ${team ? "second-team" : "first-team"} ${
         hoverActiveUnit === id && "active"
       } ${canAttacked && "can-attacked"}`}
       onMouseEnter={() => hoverUnit(id)}
