@@ -1,7 +1,9 @@
+import { Unit } from "../classes/Unit";
+
 export interface TeamsTypes {
-  firstTeam: TeamTypes[] | undefined;
-  secondTeam: TeamTypes[] | undefined;
-  queue: TeamTypes[] | undefined;
+  firstTeam: Unit[] | undefined;
+  secondTeam: Unit[] | undefined;
+  queue: Unit[] | undefined;
 }
 
 export interface TeamTypes {
@@ -21,9 +23,10 @@ export interface TeamTypes {
     damage: number,
     health: number,
     isDefend: boolean,
+    teamAttacked: TeamTypes[],
   ) => number;
 }
 
 export interface QueueTypes {
-  queue: TeamTypes[] | undefined;
+  queue: Unit[] | undefined;
 }

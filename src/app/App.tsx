@@ -76,12 +76,19 @@ export const App = () => {
     ) {
       return;
     }
-    const attempt = activeUnit?.doAction(
-      activeUnit.damage,
-      unit?.currentHealth,
-      unit.isDefend
-    );
-    if (attempt !== undefined) {
+    const teamAttacked =
+      (firstTeam?.includes(unit) && firstTeam) ||
+      (secondTeam?.includes(unit) && secondTeam);
+    let attempt;
+    if (teamAttacked !== false && teamAttacked !== undefined) {
+      attempt = activeUnit?.doAction(
+        activeUnit.damage,
+        unit?.currentHealth,
+        unit.isDefend,
+        teamAttacked
+      );
+    }
+    if (attempt !== undefined && typeof attempt === 'number') {
       unit!.currentHealth = attempt;
       unit.isDefend = false;
     }

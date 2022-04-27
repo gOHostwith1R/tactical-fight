@@ -52,7 +52,12 @@ export class Unit {
     return uniqueId;
   }
 
-  public doAction(damage: number, health: number, isDefend: boolean): number {
-    return this.unitAction.doAction(damage, health, isDefend);
+  public doAction(
+    damage: number,
+    health: number,
+    isDefend: boolean,
+    teamAttacked: Unit[]
+  ): number | Unit[] {
+    return this.unitAction.doAction(damage, health, isDefend, teamAttacked);
   }
 }

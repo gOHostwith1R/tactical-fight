@@ -1,7 +1,10 @@
+import { Unit } from "../Unit";
+
 export interface UnitAction {
   doAction: (
     damage: number,
     health: number,
     isDefend: boolean,
-  ) => number;
+    teamAttacked: Unit[]
+  ) => number | Unit[];
 }

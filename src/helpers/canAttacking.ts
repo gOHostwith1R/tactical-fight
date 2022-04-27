@@ -1,9 +1,9 @@
-import { TeamTypes } from "../types/teamTypes";
+import { Unit } from "../classes/Unit";
 
 export const canAttacking = (
-  unit: TeamTypes,
-  firstTeam: TeamTypes[] | undefined,
-  secondTeam: TeamTypes[] | undefined
+  unit: Unit,
+  firstTeam: Unit[] | undefined,
+  secondTeam: Unit[] | undefined
 ) => {
   const teamArray = unit.team ? firstTeam : secondTeam;
   switch (unit.typeAction) {
@@ -91,9 +91,9 @@ export const canAttacking = (
           }
           teamArray.forEach((unit) => {
             if (unit.currentHealth < 0) {
-              unit.canAttacked = false
+              unit.canAttacked = false;
             }
-          })
+          });
         } else {
           const index = secondTeam?.findIndex(
             (activeUnit) => activeUnit === unit
@@ -162,7 +162,7 @@ export const canAttacking = (
           }
           teamArray.forEach((unit) => {
             if (unit.currentHealth < 0) unit.canAttacked = false;
-          })
+          });
         }
       break;
     default:
