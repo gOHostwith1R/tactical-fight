@@ -5,6 +5,7 @@ export class MageAction implements UnitAction {
   doAction(
     damage: number,
     health: number,
+    heal: number,
     isDefend: boolean,
     teamAttacked: Unit[]
   ): Unit[] {

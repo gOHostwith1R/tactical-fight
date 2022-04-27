@@ -9,6 +9,7 @@ export class Bandit extends Unit {
         health: 75,
         currentHealth: 10,
         damage: 30,
+        heal: 0,
         initiative: 60,
         uniqueId: 0,
         team: 0,

@@ -7,6 +7,7 @@ export class Unit {
   public health: number;
   public currentHealth: number;
   public damage: number;
+  public heal: number;
   public uniqueId: number;
   public initiative: number;
   public image: string;
@@ -20,6 +21,7 @@ export class Unit {
     this.health = unit.health;
     this.currentHealth = unit.currentHealth;
     this.damage = unit.damage;
+    this.heal = unit.heal;
     this.initiative = unit.initiative;
     this.image = unit.image;
     this.uniqueId = this.createUniqueId();
@@ -55,9 +57,10 @@ export class Unit {
   public doAction(
     damage: number,
     health: number,
+    heal: number,
     isDefend: boolean,
     teamAttacked: Unit[]
   ): number | Unit[] {
-    return this.unitAction.doAction(damage, health, isDefend, teamAttacked);
+    return this.unitAction.doAction(damage, health, heal, isDefend, teamAttacked);
   }
 }

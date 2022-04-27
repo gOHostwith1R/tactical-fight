@@ -9,6 +9,7 @@ export class Centaur extends Unit {
         health: 150,
         currentHealth: 10,
         damage: 50,
+        heal: 0,
         initiative: 50,
         uniqueId: 0,
         team: 0,

@@ -3,6 +3,7 @@ export type UnitType = {
   health: number;
   currentHealth: number;
   damage: number;
+  heal: number;
   initiative: number;
   image: string;
   uniqueId: number;

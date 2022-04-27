@@ -9,6 +9,7 @@ export class Elf extends Unit {
           health: 90,
           currentHealth: 10,
           damage: 45,
+          heal: 0,
           initiative: 60,
           uniqueId: 0,
           team: 0,

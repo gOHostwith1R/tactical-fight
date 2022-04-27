@@ -6,6 +6,7 @@ export const canAttacking = (
   secondTeam: Unit[] | undefined
 ) => {
   const teamArray = unit.team ? firstTeam : secondTeam;
+  const teamArrayFriend = unit.team ? secondTeam : firstTeam;
   switch (unit.typeAction) {
     case "range":
       teamArray?.forEach((unit) => {
@@ -14,6 +15,27 @@ export const canAttacking = (
         }
       });
       break;
+    case "mage":
+      teamArray?.forEach((unit) => {
+        if (unit.currentHealth > 0) {
+          unit.canAttacked = true;
+        }
+      });
+      break;
+    case "healAll":
+      teamArrayFriend?.forEach((unit) => {
+        if (unit.currentHealth > 0) {
+          unit.canAttacked = true;
+        }
+      });
+      break;
+    case "healSolo": 
+    teamArrayFriend?.forEach((unit) => {
+      if (unit.currentHealth > 0) {
+        unit.canAttacked = true;
+      }
+    });
+    break;
     case "melee":
       if (
         teamArray !== undefined &&

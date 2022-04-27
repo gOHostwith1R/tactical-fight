@@ -1,18 +1,22 @@
+import { HealAllTeam } from "../classes/actions/HealAllTeamAction";
+import { HealSoloAction } from "../classes/actions/HealSoloAction";
 import { MageAction } from "../classes/actions/MageAction";
 import { MeleeAction } from "../classes/actions/MeleeAction";
 import { RangeAction } from "../classes/actions/RangeAction";
 import { Unit } from "../classes/Unit";
 import { Archimage } from "../classes/units/Archimage";
 import { Bandit } from "../classes/units/Bandit";
+import { Bishop } from "../classes/units/Bishop";
 import { Centaur } from "../classes/units/Centaur";
 import { Elf } from "../classes/units/Elf";
+import { Monk } from "../classes/units/Monk";
 import { Skeleton } from "../classes/units/Skeleton";
 import { SkeletonMage } from "../classes/units/SkeletonMage";
 
 export const createTeam = (numTeam: number) => {
   const team = [];
   for (let i = 0; i < 6; i++) {
-    const id = Math.floor(Math.random() * 6);
+    const id = Math.floor(Math.random() * 8);
     switch (id) {
       case 0: {
         const skeleton = new Unit(new Skeleton(), new MeleeAction());
@@ -48,6 +52,18 @@ export const createTeam = (numTeam: number) => {
         const archimage = new Unit(new Archimage(), new MageAction());
         archimage.team = numTeam;
         team.push(archimage);
+        break;
+      }
+      case 6: {
+        const monk = new Unit(new Monk(), new HealSoloAction());
+        monk.team = numTeam;
+        team.push(monk);
+        break;
+      }
+      case 7: {
+        const bishop = new Unit(new Bishop(), new HealAllTeam());
+        bishop.team = numTeam;
+        team.push(bishop);
         break;
       }
       default:

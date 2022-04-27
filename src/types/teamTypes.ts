@@ -16,14 +16,15 @@ export interface TeamTypes {
   uniqueId: number;
   typeAction: string;
   team: number;
-  canAttacked: boolean,
+  canAttacked: boolean;
   coords: { colIndex: number; rowIndex: number };
   isDefend: boolean;
   doAction: (
     damage: number,
     health: number,
     isDefend: boolean,
-    teamAttacked: TeamTypes[],
+    heal: number,
+    teamAttacked: TeamTypes[]
   ) => number;
 }
 

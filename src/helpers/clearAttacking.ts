@@ -6,5 +6,7 @@ export const clearAttacking = (
   secondTeam: Unit[] | undefined
 ) => {
   const teamArray = team ? firstTeam : secondTeam;
+  const friendTeamArray = team ? secondTeam : firstTeam;
   teamArray?.forEach((unit) => (unit.canAttacked = false));
+  friendTeamArray?.forEach((unit) => (unit.canAttacked = false));
 };
