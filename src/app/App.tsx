@@ -69,11 +69,41 @@ export const App = () => {
     const unit =
       firstTeam?.find((elem) => elem.uniqueId === id) ||
       secondTeam?.find((elem) => elem.uniqueId === id);
+    if (unit === undefined) {
+      return;
+    }
     if (
-      unit === undefined ||
-      unit.currentHealth === 0 ||
-      activeUnit?.team === team
+      unit!.currentHealth !== 0 ||
+      unit!.typeAction === "healAll" ||
+      unit!.typeAction === "healSolo"
     ) {
+      const temHeal =
+        (firstTeam?.includes(unit) && firstTeam) ||
+        (secondTeam?.includes(unit) && secondTeam);
+      if (temHeal !== false && temHeal !== undefined) {
+        if (unit.currentHealth === 0) {
+          return;
+        }
+        const attempt = activeUnit?.doAction(
+          activeUnit.damage,
+          unit!.currentHealth,
+          activeUnit.heal,
+          unit!.isDefend,
+          temHeal
+        );
+        if (typeof attempt === "number") {
+          unit.currentHealth = attempt;
+          if (unit.currentHealth >= unit.health) {
+            unit.currentHealth = unit.health;
+          } else {
+            unit.currentHealth = attempt;
+          }
+        }
+      }
+      onChangeQueue();
+      clearAttacking(activeUnit!.team, firstTeam, secondTeam);
+    }
+    if (unit.currentHealth === 0 || activeUnit?.team === team) {
       return;
     }
     const teamAttacked =
@@ -84,11 +114,12 @@ export const App = () => {
       attempt = activeUnit?.doAction(
         activeUnit.damage,
         unit?.currentHealth,
+        activeUnit.heal,
         unit.isDefend,
         teamAttacked
       );
     }
-    if (attempt !== undefined && typeof attempt === 'number') {
+    if (attempt !== undefined && typeof attempt === "number") {
       unit!.currentHealth = attempt;
       unit.isDefend = false;
     }
