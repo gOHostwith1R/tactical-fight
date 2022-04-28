@@ -14,7 +14,7 @@ export class Bishop extends Unit {
         initiative: 20,
         uniqueId: 0,
         team: 0,
-        typeAction: "healAll",
+        typeAction: "heal",
         canAttacked: false,
         coords: { colIndex: -1, rowIndex: -1 },
         isDefend: false,

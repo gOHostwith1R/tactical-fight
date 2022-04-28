@@ -22,20 +22,20 @@ export const canAttacking = (
         }
       });
       break;
-    case "healAll":
+    case "heal":
       teamArrayFriend?.forEach((unit) => {
         if (unit.currentHealth > 0) {
           unit.canAttacked = true;
         }
       });
       break;
-    case "healSolo": 
-    teamArrayFriend?.forEach((unit) => {
-      if (unit.currentHealth > 0) {
-        unit.canAttacked = true;
-      }
-    });
-    break;
+    case "paralyzer":
+      teamArray?.forEach((unit) => {
+        if (unit.currentHealth > 0) {
+          unit.canAttacked = true;
+        }
+      });
+      break;
     case "melee":
       if (
         teamArray !== undefined &&

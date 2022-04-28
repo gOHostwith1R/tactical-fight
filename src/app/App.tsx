@@ -76,10 +76,12 @@ export const App = () => {
       return;
     }
     if (
-      unit!.currentHealth !== 0 ||
-      unit!.typeAction === "healAll" ||
-      unit!.typeAction === "healSolo"
+      activeUnit !== undefined &&
+      unit.currentHealth !== 0 &&
+      activeUnit.team === unit.team &&
+      activeUnit.typeAction === "heal"
     ) {
+      console.log("d");
       const temHeal =
         (firstTeam?.includes(unit) && firstTeam) ||
         (secondTeam?.includes(unit) && secondTeam);
@@ -101,36 +103,40 @@ export const App = () => {
           } else {
             unit.currentHealth = attempt;
           }
-        } else if (typeof attempt === "boolean") {
-          unit!.isParalyzed = attempt;
         }
       }
       onChangeQueue();
       clearAttacking(activeUnit!.team, firstTeam, secondTeam);
+    } else {
+      if (
+        activeUnit?.typeAction === "heal" ||
+        unit.currentHealth === 0 ||
+        activeUnit?.team === team
+      ) {
+        return;
+      }
+      const teamAttacked =
+        (firstTeam?.includes(unit) && firstTeam) ||
+        (secondTeam?.includes(unit) && secondTeam);
+      let attempt;
+      if (teamAttacked !== false && teamAttacked !== undefined) {
+        attempt = activeUnit?.doAction(
+          activeUnit.damage,
+          unit?.currentHealth,
+          activeUnit.heal,
+          unit.isDefend,
+          teamAttacked
+        );
+      }
+      if (attempt !== undefined && typeof attempt === "number") {
+        unit!.currentHealth = attempt;
+        unit.isDefend = false;
+      } else if (typeof attempt === "boolean") {
+        unit!.isParalyzed = attempt;
+      }
       setWinTeam(checkTeam(firstTeam, 1) || checkTeam(secondTeam, 2));
+      onChangeQueue();
     }
-    if (unit.currentHealth === 0 || activeUnit?.team === team) {
-      return;
-    }
-    const teamAttacked =
-      (firstTeam?.includes(unit) && firstTeam) ||
-      (secondTeam?.includes(unit) && secondTeam);
-    let attempt;
-    if (teamAttacked !== false && teamAttacked !== undefined) {
-      attempt = activeUnit?.doAction(
-        activeUnit.damage,
-        unit?.currentHealth,
-        activeUnit.heal,
-        unit.isDefend,
-        teamAttacked
-      );
-    }
-    if (attempt !== undefined && typeof attempt === "number") {
-      unit!.currentHealth = attempt;
-      unit.isDefend = false;
-    }
-    setWinTeam(checkTeam(firstTeam, 1) || checkTeam(secondTeam, 2));
-    onChangeQueue();
   };
 
   const onDefend = () => {

@@ -14,7 +14,7 @@ export class Monk extends Unit {
         initiative: 20,
         uniqueId: 0,
         team: 0,
-        typeAction: "healSolo",
+        typeAction: "heal",
         canAttacked: false,
         coords: { colIndex: -1, rowIndex: -1 },
         isDefend: false,
