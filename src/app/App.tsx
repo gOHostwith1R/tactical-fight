@@ -83,12 +83,13 @@ export const App = () => {
       healUnits(firstTeam, secondTeam, unit, activeUnit);
       onChangeQueue();
       clearAttacking(activeUnit!.team, firstTeam, secondTeam);
-    } else if (activeUnit?.typeAction === "heal" || activeUnit?.team === team) {
-        return;
-      }
-      attackUnits(firstTeam, secondTeam, unit, activeUnit);
-      setWinTeam(checkTeam(firstTeam, 1) || checkTeam(secondTeam, 2));
-      onChangeQueue();
+    }
+    if (activeUnit?.typeAction === "heal" || activeUnit?.team === team) {
+      return;
+    }
+    attackUnits(firstTeam, secondTeam, unit, activeUnit);
+    setWinTeam(checkTeam(firstTeam, 1) || checkTeam(secondTeam, 2));
+    onChangeQueue();
   };
 
   const onDefend = () => {

@@ -9,7 +9,7 @@ export const healUnits = (
   const temHeal =
     (firstTeam?.includes(unit) && firstTeam) ||
     (secondTeam?.includes(unit) && secondTeam);
-  if (temHeal !== false && temHeal !== undefined && unit.currentHealth === 0) {
+  if (temHeal !== false && temHeal !== undefined && unit.currentHealth !== 0) {
     const attempt = activeUnit?.doAction(
       activeUnit.damage,
       unit!.currentHealth,
@@ -18,8 +18,7 @@ export const healUnits = (
       temHeal
     );
     if (typeof attempt === "number") {
-      unit.currentHealth = attempt;
-      if (unit.currentHealth >= unit.health) {
+      if (attempt >= unit.health) {
         unit.currentHealth = unit.health;
       } else {
         unit.currentHealth = attempt;
