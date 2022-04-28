@@ -10,6 +10,7 @@ export class Monk extends Unit {
         currentHealth: 20,
         damage: 0,
         heal: 40,
+        isParalyzed: false,
         initiative: 20,
         uniqueId: 0,
         team: 0,

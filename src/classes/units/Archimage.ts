@@ -10,6 +10,7 @@ export class Archimage extends Unit {
         currentHealth: 30,
         damage: 30,
         heal: 0,
+        isParalyzed: false,
         initiative: 40,
         uniqueId: 0,
         team: 0,

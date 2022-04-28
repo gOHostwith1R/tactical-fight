@@ -1,13 +1,15 @@
 .unit__wrapper {
-    width: 100px;
-    height: 150px;
+    display: flex;
+    flex-direction: column;
+    width: 117px;
+    height: 140px;
     text-align: center;
     cursor: pointer;
     border-radius: 3px;
 }
 
 .unit__image {
-    width: 100px;
+    width: 117px;
     height: 100px;
 }
 
@@ -29,8 +31,7 @@
 
 .unit__title {
     margin: 0;
-    font-size: 14px;
-    word-break: break-all;
+    font-size: 15px;
 }
 
 .active__title-unit {

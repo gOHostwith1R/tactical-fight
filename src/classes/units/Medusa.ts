@@ -1,26 +1,26 @@
-import { RangeAction } from "../actions/RangeAction";
+import { ParalyzerAction } from "../actions/ParalyzerAction";
 import { Unit } from "../Unit";
 
-export class Bandit extends Unit {
+export class Medusa extends Unit {
   constructor() {
     super(
       {
-        name: "Bandit",
-        health: 75,
+        name: "Medusa",
+        health: 80,
         currentHealth: 10,
-        damage: 30,
+        damage: 0,
         heal: 0,
         isParalyzed: false,
-        initiative: 60,
+        initiative: 20,
         uniqueId: 0,
         team: 0,
-        typeAction: 'range',
+        typeAction: "paralyzer",
         canAttacked: false,
         coords: { colIndex: -1, rowIndex: -1 },
         isDefend: false,
-        image: "../../assets/banditCard.png",
+        image: "../../assets/medusaCard.png",
       },
-      new RangeAction()
+      new ParalyzerAction()
     );
   }
 }

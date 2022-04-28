@@ -10,7 +10,7 @@
 .team__wrapper {
     display: flex;
     flex-wrap: wrap;
-    max-width: 317px;
+    max-width: 367px;
     gap: 5px;
     margin: 0 auto;
 }

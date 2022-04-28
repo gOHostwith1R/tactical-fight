@@ -1,7 +1,8 @@
-import { HealAllTeam } from "../classes/actions/HealAllTeamAction";
+import { HealAllTeamAction } from "../classes/actions/HealAllTeamAction";
 import { HealSoloAction } from "../classes/actions/HealSoloAction";
 import { MageAction } from "../classes/actions/MageAction";
 import { MeleeAction } from "../classes/actions/MeleeAction";
+import { ParalyzerAction } from "../classes/actions/ParalyzerAction";
 import { RangeAction } from "../classes/actions/RangeAction";
 import { Unit } from "../classes/Unit";
 import { Archimage } from "../classes/units/Archimage";
@@ -9,6 +10,7 @@ import { Bandit } from "../classes/units/Bandit";
 import { Bishop } from "../classes/units/Bishop";
 import { Centaur } from "../classes/units/Centaur";
 import { Elf } from "../classes/units/Elf";
+import { Medusa } from "../classes/units/Medusa";
 import { Monk } from "../classes/units/Monk";
 import { Skeleton } from "../classes/units/Skeleton";
 import { SkeletonMage } from "../classes/units/SkeletonMage";
@@ -16,7 +18,7 @@ import { SkeletonMage } from "../classes/units/SkeletonMage";
 export const createTeam = (numTeam: number) => {
   const team = [];
   for (let i = 0; i < 6; i++) {
-    const id = Math.floor(Math.random() * 8);
+    const id = Math.floor(Math.random() * 9);
     switch (id) {
       case 0: {
         const skeleton = new Unit(new Skeleton(), new MeleeAction());
@@ -61,9 +63,15 @@ export const createTeam = (numTeam: number) => {
         break;
       }
       case 7: {
-        const bishop = new Unit(new Bishop(), new HealAllTeam());
+        const bishop = new Unit(new Bishop(), new HealAllTeamAction());
         bishop.team = numTeam;
         team.push(bishop);
+        break;
+      }
+      case 8: {
+        const medusa = new Unit(new Medusa(), new ParalyzerAction());
+        medusa.team = numTeam;
+        team.push(medusa);
         break;
       }
       default:

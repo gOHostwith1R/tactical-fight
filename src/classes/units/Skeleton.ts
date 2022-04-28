@@ -10,6 +10,7 @@ export class Skeleton extends Unit {
         currentHealth: 10,
         damage: 25,
         heal: 0,
+        isParalyzed: false,
         initiative: 50,
         uniqueId: 0,
         team: 0,

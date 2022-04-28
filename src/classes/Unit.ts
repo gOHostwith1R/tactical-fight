@@ -8,6 +8,7 @@ export class Unit {
   public currentHealth: number;
   public damage: number;
   public heal: number;
+  public isParalyzed: boolean;
   public uniqueId: number;
   public initiative: number;
   public image: string;
@@ -22,25 +23,10 @@ export class Unit {
     this.currentHealth = unit.currentHealth;
     this.damage = unit.damage;
     this.heal = unit.heal;
+    this.isParalyzed = unit.isParalyzed;
     this.initiative = unit.initiative;
     this.image = unit.image;
     this.uniqueId = this.createUniqueId();
-    this.unitAction = unitAction;
-    this.team = unit.team;
-    this.typeAction = unit.typeAction;
-    this.canAttacked = unit.canAttacked;
-    this.coords = unit.coords;
-    this.isDefend = unit.isDefend;
-  }
-
-  setUnit(unit: UnitType, unitAction: UnitAction) {
-    this.name = unit.name;
-    this.health = unit.health;
-    this.currentHealth = unit.currentHealth;
-    this.damage = unit.damage;
-    this.initiative = unit.initiative;
-    this.image = unit.image;
-    this.uniqueId = unit.uniqueId;
     this.unitAction = unitAction;
     this.team = unit.team;
     this.typeAction = unit.typeAction;
@@ -60,7 +46,7 @@ export class Unit {
     heal: number,
     isDefend: boolean,
     teamAttacked: Unit[]
-  ): number | Unit[] {
+  ): number | Unit[] | boolean {
     return this.unitAction.doAction(damage, health, heal, isDefend, teamAttacked);
   }
 }

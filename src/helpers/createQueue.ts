@@ -6,9 +6,11 @@ export const createQueue = (
 ) => {
   const queue: Unit[] = [];
   firstTeam?.forEach((elem) => {
+    if(!elem.isParalyzed)
     queue.push(elem);
   });
   secondTeam?.forEach((elem) => {
+    if(!elem.isParalyzed)
     queue.push(elem);
   });
   const trueQueue = queue

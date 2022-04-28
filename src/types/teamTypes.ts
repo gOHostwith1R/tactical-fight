@@ -9,6 +9,8 @@ export interface TeamsTypes {
 export interface TeamTypes {
   damage: number;
   health: number;
+  heal: number;
+  isParalyzed: boolean;
   currentHealth: number;
   image: string;
   initiative: number;

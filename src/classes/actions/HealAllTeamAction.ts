@@ -1,7 +1,7 @@
 import { Unit } from "../Unit";
 import { UnitAction } from "./interfaceUnitAction";
 
-export class HealAllTeam implements UnitAction {
+export class HealAllTeamAction implements UnitAction {
   doAction(
     damage: number,
     health: number,

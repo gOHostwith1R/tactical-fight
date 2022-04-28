@@ -7,5 +7,5 @@ export interface UnitAction {
     heal: number,
     isDefend: boolean,
     teamAttacked: Unit[]
-  ) => number | Unit[];
+  ) => number | Unit[] | boolean;
 }

@@ -15,7 +15,7 @@ export const App = () => {
   const [activeUnit, setActiveUnit] = useState<Unit>();
   const [callRender, setCallRender] = useState<number>();
   const [winTeam, setWinTeam] = useState<number | undefined>();
-
+  const [currentQueue, setCurrentQueue] = useState<number>(0);
   //create team
   useLayoutEffect(() => {
     setFirstTeam(createTeam(0));
@@ -58,7 +58,10 @@ export const App = () => {
         (unit) => unit.currentHealth > 0
       );
       if (activeUnit !== undefined) {
+        setCurrentQueue((currentQueue) => (currentQueue += 1));
         setQueue(createQueue(currentFirstTeam, currentSecondTeam));
+        firstTeam?.forEach((unit) => (unit.isParalyzed = false));
+        secondTeam?.forEach((unit) => (unit.isParalyzed = false));
       }
     }
     activeUnit?.team !== undefined &&
@@ -98,10 +101,13 @@ export const App = () => {
           } else {
             unit.currentHealth = attempt;
           }
+        } else if (typeof attempt === "boolean") {
+          unit!.isParalyzed = attempt;
         }
       }
       onChangeQueue();
       clearAttacking(activeUnit!.team, firstTeam, secondTeam);
+      setWinTeam(checkTeam(firstTeam, 1) || checkTeam(secondTeam, 2));
     }
     if (unit.currentHealth === 0 || activeUnit?.team === team) {
       return;

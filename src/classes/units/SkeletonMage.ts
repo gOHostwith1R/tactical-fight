@@ -10,6 +10,7 @@ export class SkeletonMage extends Unit {
         currentHealth: 10,
         damage: 20,
         heal: 0,
+        isParalyzed: false,
         initiative: 40,
         uniqueId: 0,
         team: 0,

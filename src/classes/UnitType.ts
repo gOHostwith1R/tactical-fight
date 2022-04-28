@@ -4,6 +4,7 @@ export type UnitType = {
   currentHealth: number;
   damage: number;
   heal: number;
+  isParalyzed: boolean,
   initiative: number;
   image: string;
   uniqueId: number;

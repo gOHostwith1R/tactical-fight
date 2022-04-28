@@ -1,4 +1,4 @@
-import { HealAllTeam } from "../actions/HealAllTeamAction";
+import { HealAllTeamAction } from "../actions/HealAllTeamAction";
 import { Unit } from "../Unit";
 
 export class Bishop extends Unit {
@@ -10,6 +10,7 @@ export class Bishop extends Unit {
         currentHealth: 10,
         damage: 0,
         heal: 25,
+        isParalyzed: false,
         initiative: 20,
         uniqueId: 0,
         team: 0,
@@ -19,7 +20,7 @@ export class Bishop extends Unit {
         isDefend: false,
         image: "../../assets/bishopCard.png",
       },
-      new HealAllTeam()
+      new HealAllTeamAction()
     );
   }
 }
