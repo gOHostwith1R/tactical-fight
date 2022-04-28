@@ -7,7 +7,7 @@ export class Archimage extends Unit {
       {
         name: "Archimage",
         health: 90,
-        currentHealth: 30,
+        currentHealth: 90,
         damage: 30,
         heal: 0,
         isParalyzed: false,

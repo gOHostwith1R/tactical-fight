@@ -7,7 +7,7 @@ export class Medusa extends Unit {
       {
         name: "Medusa",
         health: 80,
-        currentHealth: 10,
+        currentHealth: 80,
         damage: 0,
         heal: 0,
         isParalyzed: false,

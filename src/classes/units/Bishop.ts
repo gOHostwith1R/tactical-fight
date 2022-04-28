@@ -7,7 +7,7 @@ export class Bishop extends Unit {
       {
         name: "Bishop",
         health: 130,
-        currentHealth: 10,
+        currentHealth: 130,
         damage: 0,
         heal: 25,
         isParalyzed: false,

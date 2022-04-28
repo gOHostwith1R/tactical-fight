@@ -7,7 +7,7 @@ export class Monk extends Unit {
       {
         name: "Monk",
         health: 90,
-        currentHealth: 20,
+        currentHealth: 90,
         damage: 0,
         heal: 40,
         isParalyzed: false,

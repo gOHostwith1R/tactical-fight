@@ -7,7 +7,7 @@ export class SkeletonMage extends Unit {
       {
         name: "Skeleton Mage",
         health: 50,
-        currentHealth: 10,
+        currentHealth: 50,
         damage: 20,
         heal: 0,
         isParalyzed: false,

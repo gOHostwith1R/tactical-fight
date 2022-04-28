@@ -7,7 +7,7 @@ export class Skeleton extends Unit {
       {
         name: "Skeleton",
         health: 100,
-        currentHealth: 10,
+        currentHealth: 100,
         damage: 25,
         heal: 0,
         isParalyzed: false,

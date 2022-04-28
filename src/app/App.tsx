@@ -7,6 +7,8 @@ import { Unit } from "../classes/Unit";
 import { canAttacking } from "../helpers/canAttacking";
 import { clearAttacking } from "../helpers/clearAttacking";
 import { checkTeam } from "../helpers/checkTeam";
+import { healUnits } from "../helpers/healUnits";
+import { attackUnits } from "../helpers/attackUnits";
 
 export const App = () => {
   const [firstTeam, setFirstTeam] = useState<Unit[]>();
@@ -15,7 +17,6 @@ export const App = () => {
   const [activeUnit, setActiveUnit] = useState<Unit>();
   const [callRender, setCallRender] = useState<number>();
   const [winTeam, setWinTeam] = useState<number | undefined>();
-  const [currentQueue, setCurrentQueue] = useState<number>(0);
   //create team
   useLayoutEffect(() => {
     setFirstTeam(createTeam(0));
@@ -58,7 +59,6 @@ export const App = () => {
         (unit) => unit.currentHealth > 0
       );
       if (activeUnit !== undefined) {
-        setCurrentQueue((currentQueue) => (currentQueue += 1));
         setQueue(createQueue(currentFirstTeam, currentSecondTeam));
         firstTeam?.forEach((unit) => (unit.isParalyzed = false));
         secondTeam?.forEach((unit) => (unit.isParalyzed = false));
@@ -72,71 +72,23 @@ export const App = () => {
     const unit =
       firstTeam?.find((elem) => elem.uniqueId === id) ||
       secondTeam?.find((elem) => elem.uniqueId === id);
-    if (unit === undefined) {
+    if (
+      unit === undefined ||
+      activeUnit === undefined ||
+      unit.currentHealth === 0
+    ) {
       return;
     }
-    if (
-      activeUnit !== undefined &&
-      unit.currentHealth !== 0 &&
-      activeUnit.team === unit.team &&
-      activeUnit.typeAction === "heal"
-    ) {
-      console.log("d");
-      const temHeal =
-        (firstTeam?.includes(unit) && firstTeam) ||
-        (secondTeam?.includes(unit) && secondTeam);
-      if (temHeal !== false && temHeal !== undefined) {
-        if (unit.currentHealth === 0) {
-          return;
-        }
-        const attempt = activeUnit?.doAction(
-          activeUnit.damage,
-          unit!.currentHealth,
-          activeUnit.heal,
-          unit!.isDefend,
-          temHeal
-        );
-        if (typeof attempt === "number") {
-          unit.currentHealth = attempt;
-          if (unit.currentHealth >= unit.health) {
-            unit.currentHealth = unit.health;
-          } else {
-            unit.currentHealth = attempt;
-          }
-        }
-      }
+    if (activeUnit.team === unit.team && activeUnit.typeAction === "heal") {
+      healUnits(firstTeam, secondTeam, unit, activeUnit);
       onChangeQueue();
       clearAttacking(activeUnit!.team, firstTeam, secondTeam);
-    } else {
-      if (
-        activeUnit?.typeAction === "heal" ||
-        unit.currentHealth === 0 ||
-        activeUnit?.team === team
-      ) {
+    } else if (activeUnit?.typeAction === "heal" || activeUnit?.team === team) {
         return;
       }
-      const teamAttacked =
-        (firstTeam?.includes(unit) && firstTeam) ||
-        (secondTeam?.includes(unit) && secondTeam);
-      let attempt;
-      if (teamAttacked !== false && teamAttacked !== undefined) {
-        attempt = activeUnit?.doAction(
-          activeUnit.damage,
-          unit?.currentHealth,
-          activeUnit.heal,
-          unit.isDefend,
-          teamAttacked
-        );
-      }
-      if (attempt !== undefined && typeof attempt === "number") {
-        unit!.currentHealth = attempt;
-        unit.isDefend = false;
-      } else if (typeof attempt === "boolean") {
-        unit!.isParalyzed = attempt;
-      }
+      attackUnits(firstTeam, secondTeam, unit, activeUnit);
       setWinTeam(checkTeam(firstTeam, 1) || checkTeam(secondTeam, 2));
       onChangeQueue();
-    }
   };
 
   const onDefend = () => {
