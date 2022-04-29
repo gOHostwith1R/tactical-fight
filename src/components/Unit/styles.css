@@ -1,49 +1,57 @@
 .unit__wrapper {
-    display: flex;
-    flex-direction: column;
-    width: 117px;
-    height: 140px;
-    text-align: center;
-    cursor: pointer;
-    border-radius: 3px;
+  display: flex;
+  flex-direction: column;
+  width: 117px;
+  height: 140px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 3px;
+  position: relative;
 }
 
 .unit__image {
-    width: 117px;
-    height: 100px;
+  width: 117px;
+  height: 100px;
 }
 
 .first-team {
-    border: 1px solid yellow;
+  border: 1px solid yellow;
 }
 
 .second-team {
-    border: 1px solid red;
+  border: 1px solid red;
 }
 
 .can-attacked {
-    background-color: green;
+  background-color: green;
 }
 
 .active {
-    background-color: blue;
+  background-color: blue;
 }
 
 .unit__title {
-    margin: 0;
-    font-size: 15px;
+  margin: 0;
+  font-size: 15px;
 }
 
 .active__title-unit {
-    color: antiquewhite;
+  color: antiquewhite;
 }
 
 .unit__health {
-    margin: 0;
+  margin: 0;
 }
 
 .unit__wrapper-title {
-    display: flex;
-    justify-content: center;
-    gap: 5px;
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+.filling {
+  width: 117px;
+  background-color: red;
+  position: absolute;
+  opacity: 0.5;
 }

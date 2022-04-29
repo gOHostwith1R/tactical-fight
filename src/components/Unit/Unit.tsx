@@ -1,4 +1,5 @@
 import { FC, ReactElement } from "react";
+import { fillUnit } from "../../helpers/fillUnit";
 import "./styles.css";
 
 export const Unit: FC<UnitProps> = ({
@@ -15,6 +16,7 @@ export const Unit: FC<UnitProps> = ({
   canAttacked,
   onAttackUnit,
 }): ReactElement => {
+  console.log(fillUnit(health, currentHealth));
   return (
     <div
       className={`unit__wrapper
@@ -43,6 +45,10 @@ export const Unit: FC<UnitProps> = ({
           {currentHealth} / {health}
         </p>
       </div>
+      <div
+        className="filling"
+        style={{ height: `${fillUnit(health, currentHealth)}px` }}
+      />
     </div>
   );
 };
