@@ -11,7 +11,6 @@ export type UnitType = {
   team: number;
   typeAction: string;
   canAttacked: boolean;
-  coords: { colIndex: number; rowIndex: number };
   isDefend: boolean;
   
 };

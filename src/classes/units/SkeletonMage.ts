@@ -16,7 +16,6 @@ export class SkeletonMage extends Unit {
         team: 0,
         typeAction: "mage",
         canAttacked: false,
-        coords: { colIndex: -1, rowIndex: -1 },
         isDefend: false,
         image: "../../assets/skeletonMagCard.png",
       },

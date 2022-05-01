@@ -15,7 +15,6 @@ export class Unit {
   public team: number;
   public typeAction: string;
   public canAttacked: boolean;
-  public coords: { colIndex: number; rowIndex: number };
   public isDefend: boolean;
   constructor(unit: UnitType, unitAction: UnitAction) {
     this.name = unit.name;
@@ -31,7 +30,6 @@ export class Unit {
     this.team = unit.team;
     this.typeAction = unit.typeAction;
     this.canAttacked = unit.canAttacked;
-    this.coords = unit.coords;
     this.isDefend = unit.isDefend;
   }
 
@@ -47,6 +45,12 @@ export class Unit {
     isDefend: boolean,
     teamAttacked: Unit[]
   ): number | Unit[] | boolean {
-    return this.unitAction.doAction(damage, health, heal, isDefend, teamAttacked);
+    return this.unitAction.doAction(
+      damage,
+      health,
+      heal,
+      isDefend,
+      teamAttacked
+    );
   }
 }

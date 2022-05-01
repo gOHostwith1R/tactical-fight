@@ -1,4 +1,5 @@
 import { FC, useState } from "react";
+import { Unit as UnitClass } from "../../classes/Unit";
 import { Button } from "../../components/Button/Button";
 import { Unit } from "../../components/Unit/Unit";
 import { TeamsTypes } from "../../types/teamTypes";
@@ -12,6 +13,7 @@ export const Field: FC<FieldProps> = ({
   secondTeam,
   onAttackUnit,
   onDefend,
+  activeUnit,
 }) => {
   const [hoverActiveUnit, setHoverActiveUnit] = useState(-1);
 
@@ -76,7 +78,7 @@ export const Field: FC<FieldProps> = ({
           </div>
         </div>
       </div>
-      <UnitInfo />
+      <UnitInfo activeUnit={activeUnit} />
     </>
   );
 };
@@ -84,4 +86,5 @@ export const Field: FC<FieldProps> = ({
 interface FieldProps extends TeamsTypes {
   onAttackUnit: (id: number, team: number) => void;
   onDefend: () => void;
+  activeUnit: UnitClass | undefined;
 }

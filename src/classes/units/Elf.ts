@@ -16,7 +16,6 @@ export class Elf extends Unit {
           team: 0,
           typeAction: 'range',
           canAttacked: false,
-          coords: { colIndex: -1, rowIndex: -1 },
           isDefend: false,
           image: "../../assets/elfCard.png",
         },

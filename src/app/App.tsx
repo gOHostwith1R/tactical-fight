@@ -106,6 +106,7 @@ export const App = () => {
         queue={queue}
         onAttackUnit={onAttackUnit}
         onDefend={onDefend}
+        activeUnit={activeUnit}
       />
     </div>
   );

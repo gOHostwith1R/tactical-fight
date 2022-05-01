@@ -16,7 +16,6 @@ export class Medusa extends Unit {
         team: 0,
         typeAction: "paralyzer",
         canAttacked: false,
-        coords: { colIndex: -1, rowIndex: -1 },
         isDefend: false,
         image: "../../assets/medusaCard.png",
       },

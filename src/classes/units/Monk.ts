@@ -16,7 +16,6 @@ export class Monk extends Unit {
         team: 0,
         typeAction: "heal",
         canAttacked: false,
-        coords: { colIndex: -1, rowIndex: -1 },
         isDefend: false,
         image: "../../assets/monkCard.png",
       },
