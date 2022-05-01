@@ -16,7 +16,6 @@ export const Unit: FC<UnitProps> = ({
   canAttacked,
   onAttackUnit,
 }): ReactElement => {
-  console.log(fillUnit(health, currentHealth));
   return (
     <div
       className={`unit__wrapper

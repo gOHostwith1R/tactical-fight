@@ -191,4 +191,5 @@ export const canAttacking = (
       teamArray?.forEach((unit) => (unit.canAttacked = false));
       break;
   }
+  return teamArray;
 };
