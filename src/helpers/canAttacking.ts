@@ -86,7 +86,7 @@ export const canAttacking = (
           }
           if (index === 0) {
             if (firstTeam[3].currentHealth === 0) {
-              for (let i = 0; i < 3; i++) {
+              for (let i = 0; i < 2; i++) {
                 if (teamArray[i].currentHealth !== 0) {
                   teamArray[i].canAttacked = true;
                 }
@@ -104,7 +104,7 @@ export const canAttacking = (
           }
           if (index === 2) {
             if (firstTeam[5].currentHealth === 0) {
-              for (let i = 0; i < 3; i++) {
+              for (let i = 1; i < 3; i++) {
                 if (teamArray[i].currentHealth !== 0) {
                   teamArray[i].canAttacked = true;
                 }
@@ -116,6 +116,18 @@ export const canAttacking = (
               unit.canAttacked = false;
             }
           });
+          if (
+            teamArray[0].currentHealth === 0 &&
+            teamArray[1].currentHealth === 0 &&
+            teamArray[2].currentHealth === 0 &&
+            teamArrayFriend![3].currentHealth === 0 &&
+            teamArrayFriend![4].currentHealth === 0 &&
+            teamArrayFriend![5].currentHealth === 0
+          ) {
+            for (let i = 3; i < 6; i++) {
+              teamArray[i].canAttacked = true;
+            }
+          }
         } else {
           const index = secondTeam?.findIndex(
             (activeUnit) => activeUnit === unit
@@ -157,7 +169,7 @@ export const canAttacking = (
           }
           if (index === 3) {
             if (secondTeam[0].currentHealth === 0) {
-              for (let i = 3; i < 6; i++) {
+              for (let i = 3; i < 5; i++) {
                 if (teamArray[i].currentHealth !== 0) {
                   teamArray[i].canAttacked = true;
                 }
@@ -175,7 +187,7 @@ export const canAttacking = (
           }
           if (index === 5) {
             if (secondTeam[2].currentHealth === 0) {
-              for (let i = 3; i < 6; i++) {
+              for (let i = 4; i < 6; i++) {
                 if (teamArray[i].currentHealth !== 0) {
                   teamArray[i].canAttacked = true;
                 }
@@ -185,6 +197,18 @@ export const canAttacking = (
           teamArray.forEach((unit) => {
             if (unit.currentHealth < 0) unit.canAttacked = false;
           });
+          if (
+            teamArray[3].currentHealth === 0 &&
+            teamArray[4].currentHealth === 0 &&
+            teamArray[5].currentHealth === 0 &&
+            teamArrayFriend![0].currentHealth === 0 &&
+            teamArrayFriend![1].currentHealth === 0 &&
+            teamArrayFriend![2].currentHealth === 0 
+          ) {
+            for (let i = 0; i < 3; i++) {
+              teamArray[i].canAttacked = true;
+            }
+          }
         }
       break;
     default:

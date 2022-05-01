@@ -3,6 +3,7 @@ import { Button } from "../../components/Button/Button";
 import { Unit } from "../../components/Unit/Unit";
 import { TeamsTypes } from "../../types/teamTypes";
 import { Queue } from "../Queue/Queue";
+import { UnitInfo } from "../UnitInfo/UnitInfo";
 import "./styles.css";
 
 export const Field: FC<FieldProps> = ({
@@ -75,6 +76,7 @@ export const Field: FC<FieldProps> = ({
           </div>
         </div>
       </div>
+      <UnitInfo />
     </>
   );
 };
